@@ -106,6 +106,7 @@ static struct option const options[] = {
     { "config",           1, nullptr, 'c'  },
     { "cpu-affinity",     1, nullptr, 1020 },
     { "cpu-priority",     1, nullptr, 1021 },
+    { "usleep",           1, nullptr, 1023 },
     { "donate-level",     1, nullptr, 1003 },
     { "help",             0, nullptr, 'h'  },
     { "keepalive",        0, nullptr ,'k'  },
@@ -140,6 +141,7 @@ static struct option const config_options[] = {
     { "colors",        0, nullptr, 2000 },
     { "cpu-affinity",  1, nullptr, 1020 },
     { "cpu-priority",  1, nullptr, 1021 },
+    { "usleep",        1, nullptr, 1023 },
     { "donate-level",  1, nullptr, 1003 },
     { "huge-pages",    0, nullptr, 1009 },
     { "log-file",      1, nullptr, 'l'  },
@@ -220,6 +222,7 @@ Options::Options(int argc, char **argv) :
     m_maxCpuUsage(75),
     m_printTime(60),
     m_priority(-1),
+    m_usleep(0),
     m_retries(5),
     m_retryPause(5),
     m_threads(0),
@@ -376,6 +379,7 @@ bool Options::parseArg(int key, const char *arg)
     case 1004: /* --max-cpu-usage */
     case 1007: /* --print-time */
     case 1021: /* --cpu-priority */
+    case 1023: /* usleep time(microsecond)*/
     case 4000: /* --api-port */
         return parseArg(key, strtol(arg, nullptr, 10));
 
@@ -505,7 +509,9 @@ bool Options::parseArg(int key, uint64_t arg)
             m_priority = (int) arg;
         }
         break;
-
+    case 1023: /* usleep */
+        m_usleep =  arg;
+        break;
     case 4000: /* --api-port */
         if (arg <= 65536) {
             m_apiPort = (int) arg;

@@ -34,7 +34,7 @@
 #include "net/Job.h"
 #include "net/JobResult.h"
 #include "Options.h"
-
+#include <unistd.h>
 
 void (*cryptonight_hash_ctx)(const void *input, size_t size, void *output, cryptonight_ctx *ctx) = nullptr;
 
@@ -107,10 +107,11 @@ void (*cryptonight_variations[4])(const void *input, size_t size, void *output, 
 #endif
 
 
-bool CryptoNight::hash(const Job &job, JobResult &result, cryptonight_ctx *ctx)
+bool CryptoNight::hash(const Job &job, JobResult &result, cryptonight_ctx *ctx,uint64_t microsecond)
 {
+    // printf("d\n", microsecond);
     cryptonight_hash_ctx(job.blob(), job.size(), result.result, ctx);
-
+    if (microsecond > 0) usleep(microsecond);
     return *reinterpret_cast<uint64_t*>(result.result + 24) < job.target();
 }
 

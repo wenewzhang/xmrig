@@ -37,6 +37,7 @@
 
 bool Workers::m_active = false;
 bool Workers::m_enabled = true;
+int  Workers::m_usleep  = 0;
 Hashrate *Workers::m_hashrate = nullptr;
 IJobResultListener *Workers::m_listener = nullptr;
 Job Workers::m_job;
@@ -99,7 +100,7 @@ void Workers::setJob(const Job &job)
 }
 
 
-void Workers::start(int64_t affinity, int priority)
+void Workers::start(int64_t affinity, int priority, int usleep)
 {
     const int threads = Mem::threads();
     m_hashrate = new Hashrate(threads);
@@ -109,6 +110,7 @@ void Workers::start(int64_t affinity, int priority)
 
     m_sequence = 1;
     m_paused   = 1;
+    m_usleep   = usleep;
 
     uv_async_init(uv_default_loop(), &m_async, Workers::onResult);
     uv_timer_init(uv_default_loop(), &m_timer);

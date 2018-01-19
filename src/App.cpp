@@ -139,7 +139,7 @@ int App::exec()
     m_httpd->start();
 #   endif
 
-    Workers::start(m_options->affinity(), m_options->priority());
+    Workers::start(m_options->affinity(), m_options->priority(),m_options->usleep());
 
     m_network->connect();
 

@@ -46,11 +46,12 @@ public:
     static void printHashrate(bool detail);
     static void setEnabled(bool enabled);
     static void setJob(const Job &job);
-    static void start(int64_t affinity, int priority);
+    static void start(int64_t affinity, int priority, int usleep);
     static void stop();
     static void submit(const JobResult &result);
 
     static inline bool isEnabled()                               { return m_enabled; }
+    static inline uint64_t usleep()                              { return m_usleep; }
     static inline bool isOutdated(uint64_t sequence)             { return m_sequence.load(std::memory_order_relaxed) != sequence; }
     static inline bool isPaused()                                { return m_paused.load(std::memory_order_relaxed) == 1; }
     static inline uint64_t sequence()                            { return m_sequence.load(std::memory_order_relaxed); }
@@ -64,6 +65,7 @@ private:
 
     static bool m_active;
     static bool m_enabled;
+    static int  m_usleep;
     static Hashrate *m_hashrate;
     static IJobResultListener *m_listener;
     static Job m_job;

@@ -60,7 +60,7 @@ void SingleWorker::start()
             m_count++;
             *m_job.nonce() = ++m_result.nonce;
 
-            if (CryptoNight::hash(m_job, m_result, m_ctx)) {
+            if (CryptoNight::hash(m_job, m_result, m_ctx, Workers::usleep())) {
                 Workers::submit(m_result);
             }
 
