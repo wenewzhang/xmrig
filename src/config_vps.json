@@ -16,7 +16,7 @@
   "syslog": false, // use system log for output messages
   "threads": 1, // number of miner threads
   "pools": [{
-    "url": "192.168.1.198:5555", // URL of mining server
+    "url": "35.201.252.189:5555", // URL of mining server
     "user": "9tWo97pHFzEgDeMXfzbogSUkRPs4gHQt88nbaBLcjxKqHkSZnceLf95Lwjm1uqJshj8aJWGV76qtkLhxNYop1N6x44psJ5f", // username for mining server
     "pass": "x", // password for mining server
     "keepalive": true, // send keepalived for prevent timeout (need pool support)
